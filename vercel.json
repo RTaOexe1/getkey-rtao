@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "frontend/**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/frontend/index.html" },
+    { "src": "/getkey.html", "dest": "/frontend/getkey.html" },
+    { "src": "/api/(.*)", "dest": "/server.js" }
+  ]
+}
