@@ -2,11 +2,12 @@
   "version": 2,
   "builds": [
     { "src": "server.js", "use": "@vercel/node" },
-    { "src": "frontend/**/*", "use": "@vercel/static" }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "getkey.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/", "dest": "/frontend/index.html" },
-    { "src": "/getkey.html", "dest": "/frontend/getkey.html" },
-    { "src": "/api/(.*)", "dest": "/server.js" }
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/getkey.html", "dest": "/getkey.html" }
   ]
 }
