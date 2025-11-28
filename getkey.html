@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Claim Key</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font-family: system-ui, Arial; background: #0b0b0f; color: #fff; display:flex; min-height:100vh; align-items:center; justify-content:center; }
+.card { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); padding:24px; border-radius:16px; width:420px; box-shadow:0 8px 30px rgba(0,0,0,0.6); }
+button { padding:10px 14px; border-radius:8px; border: none; cursor:pointer; }
+pre { background:#00000044; padding:12px; border-radius:8px; }
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Claim Key</h2>
+<p id="info">Loading...</p>
+<button id="claim">Claim Key</button>
+<pre id="out"></pre>
+<script>
+const params = new URLSearchParams(window.location.search);
+const session = params.get('session');
+document.getElementById('info').textContent = session ? ('Session: ' + session) : 'No session provided';
+document.getElementById('claim').addEventListener('click', async ()=>{
+  const res = await fetch('/api/get-key?session=' + encodeURIComponent(session));
+  const data = await res.json();
+  if(data && data.key){
+    document.getElementById('out').textContent = 'Key: '+data.key+'\nExpiresAt: '+new Date(data.expiresAt).toString();
+  } else {
+    document.getElementById('out').textContent = JSON.stringify(data,null,2);
+  }
+});
+</script>
+</div>
+</body>
+</html>
